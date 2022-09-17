@@ -81,6 +81,8 @@ daySchedule.forEach(daySchedule => {
     //Need to append a row for each index item 
     var hourRow = document.createElement("div")
     hourRow.classList.add("row")
+    //hourRow.textContent(daySchedule.hour) - when trying to add the hour from the array it does does not work and gives me an error saying it is not a function. 
+    //hourRow.text(daySchedule.hour) - same result as line above
     $(".container").append(hourRow) 
 
     //Need to append a column for the hour (set to a class: "hour col 3")
@@ -90,13 +92,18 @@ daySchedule.forEach(daySchedule => {
 
     //Need to append a column for the event form (set to a class: "col 6") + an if statement that uses moment to ID the time and thus change the color
     var taskSection = document.createElement('form')
-    taskSection.classList.add("past","col-6") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
+    taskSection.classList.add("past","col-7") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
     hourRow.append(taskSection)
     
     //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
     var saveSection = document.createElement('p')
-    saveSection.classList.add("saveBtn","col-3") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
+    saveSection.classList.add("saveBtn","col-2") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
     hourRow.append(saveSection)
+    
+    //Addition of floppydisk icon
+    var saveIcon = document.createElement('i')
+    saveIcon.classList.add("far", "fa-save")
+    saveSection.append(saveIcon)
     
 });
 
