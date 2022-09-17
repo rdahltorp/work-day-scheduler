@@ -39,35 +39,35 @@ var daySchedule = [
     {
         index: '4',
         hour: '1',
-        time: '01',
+        time: '13',
         period: 'pm',
         task: ''
     },
     {
         index: '5',
         hour: '2',
-        time: '02',
+        time: '14',
         period: 'pm',
         task: ''
     },
     {
         index: '6',
         hour: '3',
-        time: '03',
+        time: '15',
         period: 'pm',
         task: ''
     },
     {
         index: '7',
         hour: '4',
-        time: '04',
+        time: '16',
         period: 'pm',
         task: ''
     },
     {
         index: '8',
         hour: '5',
-        time: '05',
+        time: '17',
         period: 'pm',
         task: ''
     }
@@ -76,34 +76,41 @@ var daySchedule = [
 
 //Creation of the blocks
 daySchedule.forEach(daySchedule => {
-    console.log(daySchedule.index) //test to make sure the forEach is working.
+    console.log(daySchedule.index); //test to make sure the forEach is working.
 
-    //Need to append a row for each index item 
-    var hourRow = document.createElement("div")
-    hourRow.classList.add("row")
-    $(".container").append(hourRow) 
+    //Append rows for each hour
+    var hourRow = document.createElement("div");
+    hourRow.classList.add("row");
+    $(".container").append(hourRow);
 
-    //Need to append a column for the hour (set to a class: "hour col 3")
-    var hourSection = document.createElement('p')
-    hourSection.classList.add("hour","col-3")
-    //hourSection.textContent(daySchedule.hour) //- when trying to add the hour from the array it does does not work and gives me an error saying it is not a function. 
-    hourSection.text(daySchedule.hour) //- same result as line above
-    hourRow.append(hourSection)
+    //Appends an hour section in each row
+    var hourSection = document.createElement('p');
+    hourSection.classList.add("hour","col-2");
+    hourSection.innerText += daySchedule.hour + daySchedule.period;
+    hourRow.append(hourSection);
 
-    //Need to append a column for the event form (set to a class: "col 6") + an if statement that uses moment to ID the time and thus change the color
-    var taskSection = document.createElement('form')
-    taskSection.classList.add("past","col-7") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
-    hourRow.append(taskSection)
+    //Appends task form field in each row and colorcodes based on time
+    var taskSection = document.createElement('form') //Need to add in a text input
+    
+    if (daySchedule.time === moment().format("HH")) {
+        taskSection.classList.add("present","col-9");
+    } else if (daySchedule.time > moment().format("HH")) {
+        taskSection.classList.add("future","col-9");
+    } else {
+        taskSection.classList.add("past","col-9");
+    }
+
+    hourRow.append(taskSection);
     
     //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
-    var saveSection = document.createElement('p')
-    saveSection.classList.add("saveBtn","col-2") //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
-    hourRow.append(saveSection)
+    var saveSection = document.createElement('p');
+    saveSection.classList.add("saveBtn","col-1"); //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
+    hourRow.append(saveSection);
     
     //Addition of floppydisk icon
-    var saveIcon = document.createElement('i')
-    saveIcon.classList.add("far", "fa-save")
-    saveSection.append(saveIcon)
+    var saveIcon = document.createElement('i');
+    saveIcon.classList.add("far", "fa-save");
+    saveSection.append(saveIcon);
     
 });
 
