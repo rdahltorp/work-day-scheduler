@@ -3,6 +3,9 @@ var today = moment().format("[Today is: ]dddd MMMM Do, YYYY");
 $("#currentDay").text(today)
 
 //Timeblocks//
+
+var blockContainer = document.querySelector(".container")
+
 //Array of info for each hour in the day
 var daySchedule = [
     {
@@ -72,7 +75,24 @@ var daySchedule = [
 ]
 
 //Creation of the blocks
-for (var i = 0; i < daySchedule.length; i++) {
+daySchedule.forEach(daySchedule => {
+    console.log(daySchedule.index) //test to make sure the forEach is working.
+
+    //Need to append a row for each index item 
+    var hourRow = document.createElement("div")
+    hourRow.addClass("row")
+    $(".container").append(hourRow) 
+
+    //Need to append a column for the hour (set to a class: "hour col 3")
+    //var hourSec = document.createElement('p').attr({"class": "hour col 3"})
+    //hourSec.textcontent = 'daySchedule.hour' + 'daySchedule.period'
+    //$(".row").append(hourSec)
+
+    //Need to append a column for the event form (set to a class: "col 6") + an if statement that uses moment to ID the time and thus change the color
+
     
-}
+    //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
+
+    
+});
 
