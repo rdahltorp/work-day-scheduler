@@ -1,5 +1,5 @@
 //Today's Date in Header//
-var today = moment().format("[Today is: ]dddd MMMM Do, YYYY");
+var today = moment().format("[Today is: ]dddd, MMMM Do, YYYY");
 $("#currentDay").text(today)
 
 //Timeblocks//
@@ -90,7 +90,8 @@ daySchedule.forEach(daySchedule => {
     hourRow.append(hourSection);
 
     //Appends task form field in each row and colorcodes based on time
-    var taskSection = document.createElement('form') //Need to add in a text input
+    var taskSection = document.createElement('form')
+    $(taskSection).append("<input type='text' id='task' name='task' />") //Addition of text field to form
     
     if (daySchedule.time === moment().format("HH")) {
         taskSection.classList.add("present","col-9");
@@ -102,10 +103,14 @@ daySchedule.forEach(daySchedule => {
 
     hourRow.append(taskSection);
     
-    //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
-    var saveSection = document.createElement('p');
-    saveSection.classList.add("saveBtn","col-1"); //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
+    //Appends save button column
+    saveSection.classList.add("saveBtn","col-1");
     hourRow.append(saveSection);
+
+    //NEEDS WORK HERE TO FIGURE OUT HOW TO 1) UPDATE THE TASK SECTION IN ARRAY WITH NEW VALUE, 2) SAVE TO LOCAL STORAGE
+    saveSection.addEventListener('click', function saveEvent() {
+
+    });
     
     //Addition of floppydisk icon
     var saveIcon = document.createElement('i');
@@ -113,4 +118,5 @@ daySchedule.forEach(daySchedule => {
     saveSection.append(saveIcon);
     
 });
+
 

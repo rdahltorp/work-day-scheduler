@@ -73,3 +73,11 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+/* Addition to make form text field take up the whole box */
+input {
+  border: none;
+  background: none;
+  width: 100%;
+  height: 100%;
+}
