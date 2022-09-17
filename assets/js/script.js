@@ -81,13 +81,13 @@ daySchedule.forEach(daySchedule => {
     //Need to append a row for each index item 
     var hourRow = document.createElement("div")
     hourRow.classList.add("row")
-    //hourRow.textContent(daySchedule.hour) - when trying to add the hour from the array it does does not work and gives me an error saying it is not a function. 
-    //hourRow.text(daySchedule.hour) - same result as line above
     $(".container").append(hourRow) 
 
     //Need to append a column for the hour (set to a class: "hour col 3")
     var hourSection = document.createElement('p')
     hourSection.classList.add("hour","col-3")
+    //hourSection.textContent(daySchedule.hour) //- when trying to add the hour from the array it does does not work and gives me an error saying it is not a function. 
+    hourSection.text(daySchedule.hour) //- same result as line above
     hourRow.append(hourSection)
 
     //Need to append a column for the event form (set to a class: "col 6") + an if statement that uses moment to ID the time and thus change the color
