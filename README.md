@@ -16,15 +16,16 @@ Worth mentioning:
 
 ## Usage
 
-!!!NEEDS TO BE FILLED OUT!!!
+Once active the user will be able to map out any tasks/events for that day on an hourly basis (see demo below). 
 
 Provide instructions and examples for use. Include screenshots as needed.
 
 To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+![Scheduler Demo](./assets/Images/scheduler-demo.gif)
+
+
+For an example of the live application, follow this link: 
 
 ## Credits
 

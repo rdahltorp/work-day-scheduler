@@ -97,13 +97,18 @@ function output(item, index, array) {
     taskInput.setAttribute("type", "text") //Establishes the input type
     taskInput.setAttribute("id", "task") //Establishes the input id
     taskInput.setAttribute("name", "task") //Establishes the input name
+    taskInput.setAttribute('onClick', 'getValue()'); //Fires a function to pull the value of the field
 
-    var userTask = document.getElementById('task') //Trying to nail down how to pull the user's input. 
-    item.task = userTask //This should update the "task" element in the corrisponding object in the day Schedule Array, but it does not currently 
+    function getValue() {
+        var userTask = document.getElementById('task').value //Pulls value from the field
+        console.log(userTask); //Confirms the value matches what is on the field.
+        item.task = userTask; //Sets the "task" element in the corrisponding object in array to the text value. 
+    }
 
     taskForm.append(taskInput); //Appends input to the form
     hourRow.append(taskForm); //Append form to the hourRow
-    
+
+
     //Dynamic styling for taskForm based on time
     if (item.time === moment().format("HH")) {
         taskForm.classList.add("present","col-9");
@@ -124,13 +129,30 @@ function output(item, index, array) {
     saveSection.append(saveIcon); //Appends icon to the saveSection
 
     //Save Action
-    saveSection.addEventListener('click', function event() {
-        console.log(item.task)
+    saveSection.addEventListener('click', function(){
+        getValue()
+        daySchedule.push(item.task)
+        console.log(item)
     })
 
+    //Save Array to Local Storage - Currently only saves 1 object in the array
+    localStorage.setItem("daySchedule", JSON.stringify(daySchedule));
 
 }
 
+//Function to recall any locally stored items. 
+function init() {
+    var storedSchedule = JSON.parse(localStorage.getItem(daySchedule))
+
+    userTask = storedSchedule.task; //Sets the task field to any previously saved inputs.
+} 
+init()
+
+
+//GUIDANCE FROM INSTRUCTOR TEAM (stumped 3 people with my code)
+//// 1) For some reason when I try to update the 'task' string inside the corrisponding array object, it only updates the 9am object. 
+//// 2) For some reason, even though the 9am string gets updated with the user's task, it does not carry over when saved to local storage.
+//// 3) Cannot pull from the local storage. (likely because nothing is there)
 
 /* Redoing for a non-arrow function
 //Creation of the blocks
