@@ -89,10 +89,15 @@ daySchedule.forEach(daySchedule => {
     hourSection.innerText += daySchedule.hour + daySchedule.period;
     hourRow.append(hourSection);
 
-    //Appends task form field in each row and colorcodes based on time
-    var taskSection = document.createElement('form')
-    $(taskSection).append("<input type='text' id='task' name='task' />") //Addition of text field to form
-    
+    //Appends task form field in each row // !STUCK! Cannot seem to add the type = text, id = task, and name = task attributes
+    var taskSection = document.createElement('form') 
+    var taskContent = document.createElement('input')
+    taskContent.setAttribute("id", "task")
+
+    hourRow.append(taskSection)
+    taskSection.append(taskContent)
+
+    //Color codes the taskSections based on hour
     if (daySchedule.time === moment().format("HH")) {
         taskSection.classList.add("present","col-9");
     } else if (daySchedule.time > moment().format("HH")) {
@@ -101,14 +106,17 @@ daySchedule.forEach(daySchedule => {
         taskSection.classList.add("past","col-9");
     }
 
-    hourRow.append(taskSection);
     
-    //Appends save button column
-    saveSection.classList.add("saveBtn","col-1");
+    //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
+    var saveSection = document.createElement('p');
+    saveSection.classList.add("saveBtn","col-1"); //Will need to add an if statement to assign past, present, future classes. This is a test for now. 
     hourRow.append(saveSection);
 
-    //NEEDS WORK HERE TO FIGURE OUT HOW TO 1) UPDATE THE TASK SECTION IN ARRAY WITH NEW VALUE, 2) SAVE TO LOCAL STORAGE
+    //NEEDS WORK HERE TO FIGURE OUT HOW TO 1) UPDATE THE TASK SECTION IN ARRAY WITH NEW VALUE that is added in the form above, 2) SAVE TO LOCAL STROAGE
     saveSection.addEventListener('click', function saveEvent() {
+
+        //daySchedule.task = taskSection
+        console.log(taskContent)
 
     });
     
@@ -118,5 +126,3 @@ daySchedule.forEach(daySchedule => {
     saveSection.append(saveIcon);
     
 });
-
-
