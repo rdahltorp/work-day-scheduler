@@ -73,6 +73,66 @@ var daySchedule = [
     }
 ]
 
+//forEach to build out the planner fields
+daySchedule.forEach(output);
+
+//Function that builds out the planner feilds
+function output(item, index, array) {
+    console.log(item);
+
+    //Make the timeblock rows - houses the hour, task, and save columns
+    var hourRow = document.createElement('div'); //Creates a new div
+    hourRow.classList.add("row"); //Adds a row class to the new div
+    $(".container").append(hourRow); //Adds an hourRow div to the container div for each object in array
+
+    //Make the hour section column
+    var hourSection = document.createElement('p'); //Creates a new p
+    hourSection.classList.add("hour", "col-2"); //Adds hour and "col-2" classes to new p
+    hourSection.innerText = item.hour + item.period; //Adds dynamic text to new p based on object in array
+    hourRow.append(hourSection); //Appends new hour section to heach hour row
+
+    //Make the task form column
+    var taskForm = document.createElement('form'); //Creates a new form 
+    var taskInput = document.createElement('input'); //Creates an input for the form
+    taskInput.setAttribute("type", "text") //Establishes the input type
+    taskInput.setAttribute("id", "task") //Establishes the input id
+    taskInput.setAttribute("name", "task") //Establishes the input name
+
+    var userTask = document.getElementById('task') //Trying to nail down how to pull the user's input. 
+    item.task = userTask //This should update the "task" element in the corrisponding object in the day Schedule Array, but it does not currently 
+
+    taskForm.append(taskInput); //Appends input to the form
+    hourRow.append(taskForm); //Append form to the hourRow
+    
+    //Dynamic styling for taskForm based on time
+    if (item.time === moment().format("HH")) {
+        taskForm.classList.add("present","col-9");
+    } else if (item.time > moment().format("HH")) {
+        taskForm.classList.add("future","col-9");
+    } else {
+        taskForm.classList.add("past","col-9");
+    }
+
+    //Make save button column
+    var saveSection = document.createElement('p'); //Creates a new p
+    saveSection.classList.add("saveBtn","col-1"); //Adds saveBtn and col-1 classes to new p
+    hourRow.append(saveSection); //Appends saveSection to hourRow
+
+    //Add save button icon
+    var saveIcon = document.createElement('i'); //Creates a new i per FontAwesome instructions
+    saveIcon.classList.add("far", "fa-save"); //Adds floppydisk icon classes per FontAwesome instructions
+    saveSection.append(saveIcon); //Appends icon to the saveSection
+
+    //Save Action
+    saveSection.addEventListener('click', function event() {
+        console.log(item.task)
+    })
+
+
+}
+
+
+/* Redoing for a non-arrow function
 //Creation of the blocks
 daySchedule.forEach(daySchedule => {
     //tests to make sure the forEach is working.
@@ -129,25 +189,25 @@ daySchedule.forEach(daySchedule => {
     ////2) Save entire array of objects to local storage for later retrival
     saveSection.addEventListener('click', function saveEvent() {
 
-        /* CODE TO HAVE FORM INPUT PUSHED TO ARRAY – RESULTS IN "NOT A FUNCTION" ERROR*/
+        /* CODE TO HAVE FORM INPUT PUSHED TO ARRAY – RESULTS IN "NOT A FUNCTION" ERROR
         var taskContent = document.getElementById("task");
-        console.log(taskContent);
+        console.log(taskContent.value);
 
-        daySchedule.task.push(taskContent);
+        daySchedule.task = taskContent;
         console.log(daySchedule.task); 
 
         //Save Array to Local Storage - Currently only saves 1 object in the array
         localStorage.setItem("daySchedule", JSON.stringify(daySchedule));
 
 
-    });
+    });*/
     
-    //Addition of floppydisk icon
+    /* //Addition of floppydisk icon
     var saveIcon = document.createElement('i');
     saveIcon.classList.add("far", "fa-save");
     saveSection.append(saveIcon);
     
-});
+}); */
 
 /* CODE TO EVENTUALLY CALL ITEMS FROM LOCAL STORAGE 
 function init() {
