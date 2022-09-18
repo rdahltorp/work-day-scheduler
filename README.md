@@ -25,7 +25,7 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 ![Scheduler Demo](./assets/Images/scheduler-demo.gif)
 
 
-For an example of the live application, follow this link: 
+For an example of the live application, follow this link: https://rdahltorp.github.io/work-day-scheduler/
 
 ## Credits
 
