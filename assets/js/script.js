@@ -71,12 +71,13 @@ var daySchedule = [
         period: 'pm',
         task: ''
     }
-
 ]
 
 //Creation of the blocks
 daySchedule.forEach(daySchedule => {
-    console.log(daySchedule.index); //test to make sure the forEach is working.
+    //tests to make sure the forEach is working.
+    console.log(daySchedule.index); 
+    console.log(daySchedule.period);
 
     //Append rows for each hour
     var hourRow = document.createElement("div");
@@ -89,23 +90,24 @@ daySchedule.forEach(daySchedule => {
     hourSection.innerText += daySchedule.hour + daySchedule.period;
     hourRow.append(hourSection); 
 
-    //Appends task form field in each row // !STUCK! Cannot seem to add attributes like submit and method
+    //Appends task form field in each row // !STUCK!
     //Create form 
-    var taskSection = document.createElement('form') 
-    //taskContent.setAttribute("method", "post") //Getting an error here that says "cannot read properties of undefined"
-    //taskContent.setAttribute("action","submit") 
+    var taskSection = document.createElement('form'); 
+
+////////////////////////////////////////////////////////////////////////////////////////// WHAT NEEDS TO BE WORKED ON vvv
 
     //Create input
-    var taskInput = document.createElement('input')
+    var taskInput = document.createElement('input'); //makes input field
+    taskInput.classList.add(daySchedule.index); //Need this to ID which index number is related to the save button that is clicked.
     taskInput.type = "text";
     taskInput.name = "task";
     taskInput.id = "task"; 
 
     //Append input to form
-    taskSection.append(taskInput)
+    taskSection.append(taskInput);
 
     //Append form to hourRow
-    hourRow.append(taskSection)
+    hourRow.append(taskSection);
 
     //Color codes the taskSections based on hour
     if (daySchedule.time === moment().format("HH")) {
@@ -117,21 +119,25 @@ daySchedule.forEach(daySchedule => {
     }
 
     
-    //Need to append a column for the save button (set to a class: "saveBtn col 3") and need to include the save icon
+    //Appends the save button area in each row
     var saveSection = document.createElement('p');
     saveSection.classList.add("saveBtn","col-1"); 
     hourRow.append(saveSection);
 
-    //NEEDS WORK HERE TO FIGURE OUT HOW TO 1) UPDATE THE TASK SECTION IN ARRAY WITH NEW VALUE that is added in the form above, 2) SAVE TO LOCAL STROAGE
+    //Save button click - Needs to: 
+    ////1) Push the text input in the form field to the "task" in the corrispoonding object in the "dayschedule" Array
+    ////2) Save entire array of objects to local storage for later retrival
     saveSection.addEventListener('click', function saveEvent() {
 
-        /* CODE TO HAVE FORM INPUT PUSHED TO ARRAY – RESULTS IN "NOT A FUNCTION" ERROR
-        var taskContent = document.getElementById('task').value;
-        daySchedule.task.push(taskContent);
-        console.log(daySchedule.task); */
+        /* CODE TO HAVE FORM INPUT PUSHED TO ARRAY – RESULTS IN "NOT A FUNCTION" ERROR*/
+        var taskContent = document.getElementById("task");
+        console.log(taskContent);
 
-        /* CODE TO EVENTUALLY SET THE ARRAY TO LOCALSTORAGE 
-        localStorage.setItem("daySchedule", JSON.stringify(daySchedule))*/
+        daySchedule.task.push(taskContent);
+        console.log(daySchedule.task); 
+
+        //Save Array to Local Storage - Currently only saves 1 object in the array
+        localStorage.setItem("daySchedule", JSON.stringify(daySchedule));
 
 
     });
@@ -147,7 +153,7 @@ daySchedule.forEach(daySchedule => {
 function init() {
     var storedSchedule = JSON.parse(localStorage.getItem(daySchedule))
 
-    taskInput.value = storedSchedule.task
+    taskInput.value = storedSchedule.task;
 } 
 
 init()
