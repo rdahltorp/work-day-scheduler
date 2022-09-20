@@ -140,12 +140,8 @@ function init() {
     for (var i = 0; i < stored.length; i++) {
         var time = stored[i].time
         var storedTask = stored[i].task;
-        $(`#task-${time}`).innerText = storedTask
+        $(`#task-${time}`).val(storedTask);
         console.log(storedTask);
     }
-    // var storedTask = document.getElementById("task").value
-    // console.log(stored)
-
-    // storedTask = storedSchedule.task; //Sets the task field to any previously saved inputs.
 } 
 init()
