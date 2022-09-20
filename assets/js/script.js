@@ -3,7 +3,6 @@ var today = moment().format("[Today is: ]dddd, MMMM Do, YYYY");
 $("#currentDay").text(today)
 
 //Timeblocks//
-
 var blockContainer = document.querySelector(".container")
 
 //Array of info for each hour in the day
@@ -95,15 +94,9 @@ function output(item, index, array) {
     var taskForm = document.createElement('form'); //Creates a new form 
     var taskInput = document.createElement('input'); //Creates an input for the form
     taskInput.setAttribute("type", "text") //Establishes the input type
-    taskInput.setAttribute("id", "task") //Establishes the input id
+    taskInput.setAttribute("id", "task-" + item.hour) //Establishes the input id
     taskInput.setAttribute("name", "task") //Establishes the input name
-    taskInput.setAttribute('onClick', 'getValue()'); //Fires a function to pull the value of the field
-
-    function getValue() {
-        var userTask = document.getElementById('task').value //Pulls value from the field
-        console.log(userTask); //Confirms the value matches what is on the field.
-        item.task = userTask; //Sets the "task" element in the corrisponding object in array to the text value. 
-    }
+    //taskInput.setAttribute('onClick', 'getValue()'); //Fires a function to pull the value of the field
 
     taskForm.append(taskInput); //Appends input to the form
     hourRow.append(taskForm); //Append form to the hourRow
@@ -129,116 +122,30 @@ function output(item, index, array) {
     saveSection.append(saveIcon); //Appends icon to the saveSection
 
     //Save Action
-    saveSection.addEventListener('click', function(){
-        getValue()
-        daySchedule.push(item.task)
-        console.log(item)
+    saveSection.addEventListener('click', function(event){
+        //getValue(event)
+        var userTask = $(event.target).closest("p").prev().find("input").val()
+        console.log(userTask); //Confirms the value matches what is on the field.
+        item.task = userTask; //Sets the "task" element in the corrisponding object in array to the text value. 
+        //daySchedule.push(item); //Maybe I take this out??
+        console.log(item);
+        localStorage.setItem("daySchedule", JSON.stringify(daySchedule));     //Save Array to Local Storage
     })
-
-    //Save Array to Local Storage - Currently only saves 1 object in the array
-    localStorage.setItem("daySchedule", JSON.stringify(daySchedule));
-
 }
 
 //Function to recall any locally stored items. 
 function init() {
-    var storedSchedule = JSON.parse(localStorage.getItem(daySchedule))
-
-    userTask = storedSchedule.task; //Sets the task field to any previously saved inputs.
-} 
-init()
-
-
-//GUIDANCE FROM INSTRUCTOR TEAM (stumped 3 people with my code)
-//// 1) For some reason when I try to update the 'task' string inside the corrisponding array object, it only updates the 9am object. 
-//// 2) For some reason, even though the 9am string gets updated with the user's task, it does not carry over when saved to local storage.
-//// 3) Cannot pull from the local storage. (likely because nothing is there)
-
-/* Redoing for a non-arrow function
-//Creation of the blocks
-daySchedule.forEach(daySchedule => {
-    //tests to make sure the forEach is working.
-    console.log(daySchedule.index); 
-    console.log(daySchedule.period);
-
-    //Append rows for each hour
-    var hourRow = document.createElement("div");
-    hourRow.classList.add("row");
-    $(".container").append(hourRow); 
-
-    //Appends an hour section in each row
-    var hourSection = document.createElement('p');
-    hourSection.classList.add("hour","col-2");
-    hourSection.innerText += daySchedule.hour + daySchedule.period;
-    hourRow.append(hourSection); 
-
-    //Appends task form field in each row // !STUCK!
-    //Create form 
-    var taskSection = document.createElement('form'); 
-
-////////////////////////////////////////////////////////////////////////////////////////// WHAT NEEDS TO BE WORKED ON vvv
-
-    //Create input
-    var taskInput = document.createElement('input'); //makes input field
-    taskInput.classList.add(daySchedule.index); //Need this to ID which index number is related to the save button that is clicked.
-    taskInput.type = "text";
-    taskInput.name = "task";
-    taskInput.id = "task"; 
-
-    //Append input to form
-    taskSection.append(taskInput);
-
-    //Append form to hourRow
-    hourRow.append(taskSection);
-
-    //Color codes the taskSections based on hour
-    if (daySchedule.time === moment().format("HH")) {
-        taskSection.classList.add("present","col-9");
-    } else if (daySchedule.time > moment().format("HH")) {
-        taskSection.classList.add("future","col-9");
-    } else {
-        taskSection.classList.add("past","col-9");
+    var stored = JSON.parse(localStorage.getItem("daySchedule"))
+    console.log(stored);
+    for (var i = 0; i < stored.length; i++) {
+        var time = stored[i].time
+        var storedTask = stored[i].task;
+        $(`#task-${time}`).innerText = storedTask
+        console.log(storedTask);
     }
+    // var storedTask = document.getElementById("task").value
+    // console.log(stored)
 
-    
-    //Appends the save button area in each row
-    var saveSection = document.createElement('p');
-    saveSection.classList.add("saveBtn","col-1"); 
-    hourRow.append(saveSection);
-
-    //Save button click - Needs to: 
-    ////1) Push the text input in the form field to the "task" in the corrispoonding object in the "dayschedule" Array
-    ////2) Save entire array of objects to local storage for later retrival
-    saveSection.addEventListener('click', function saveEvent() {
-
-        /* CODE TO HAVE FORM INPUT PUSHED TO ARRAY – RESULTS IN "NOT A FUNCTION" ERROR
-        var taskContent = document.getElementById("task");
-        console.log(taskContent.value);
-
-        daySchedule.task = taskContent;
-        console.log(daySchedule.task); 
-
-        //Save Array to Local Storage - Currently only saves 1 object in the array
-        localStorage.setItem("daySchedule", JSON.stringify(daySchedule));
-
-
-    });*/
-    
-    /* //Addition of floppydisk icon
-    var saveIcon = document.createElement('i');
-    saveIcon.classList.add("far", "fa-save");
-    saveSection.append(saveIcon);
-    
-}); */
-
-/* CODE TO EVENTUALLY CALL ITEMS FROM LOCAL STORAGE 
-function init() {
-    var storedSchedule = JSON.parse(localStorage.getItem(daySchedule))
-
-    taskInput.value = storedSchedule.task;
+    // storedTask = storedSchedule.task; //Sets the task field to any previously saved inputs.
 } 
-
 init()
-*/
-
-
