@@ -27,10 +27,6 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 For an example of the live application, follow this link: https://rdahltorp.github.io/work-day-scheduler/
 
-## Credits
-
-Starter code for this project provided by University of Denver's Fullstack Bootcamp course. 
-
 ## Features
 
 Features included in this web app: 
